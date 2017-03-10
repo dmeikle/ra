@@ -45,6 +45,8 @@ class Encryption {
         // $2a$10$eImiTXuWVxfM37uY4JANjQ==
         // Hash the password with the salt
         $hash = crypt($password, $salt);
+
+        return $hash;
     }
 
     /**
