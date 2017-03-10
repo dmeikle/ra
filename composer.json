@@ -1,0 +1,39 @@
+{
+
+  "name": "gossamer/horus",
+  "type": "library",
+  "description": "php event dispatcher",
+  "keywords": [
+    "php",
+    "event dispatcher"
+  ],
+  "homepage": "https://github.com/dmeikle/horus",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Dave Meikle",
+      "email": "david@quantumunit.com",
+      "homepage": "http://www.quantumunit.com",
+      "role": "Developer"
+
+    }
+  ],
+  "minimum-stability": "stable",
+  "require": {
+    "monolog/monolog": "1.2.*",
+    "gossamer/caching": "dev-master",
+    "gossamer/pesedget": "v1.1.*",
+    "gossamer/pesedget-couchbase": "dev-master",
+    "gossamer/neith": "1.1.*",
+    "gossamer/horus": "1.1.*",
+    "mobiledetect/mobiledetectlib": "^2.8"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "4.0.*"
+  },
+  "autoload": {
+    "psr-0": {
+      "Gossamer\\Ra": "src/"
+    }
+  }
+}
