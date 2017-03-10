@@ -22,7 +22,6 @@
     "monolog/monolog": "1.2.*",
     "gossamer/caching": "dev-master",
     "gossamer/neith": "1.1.*",
-    "gossamer/pesedget-couchbase": "1.1.*",
     "gossamer/horus": "1.1.*",
     "gossamer/set": "1.1.*"
   },
