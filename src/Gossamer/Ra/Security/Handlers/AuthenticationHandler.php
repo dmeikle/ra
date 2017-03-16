@@ -80,7 +80,7 @@ use Gossamer\Horus\Http\HttpInterface;
  *
  * @author Dave Meikle
  */
-class AuthenticationHandler  {
+abstract class AuthenticationHandler  {
 
     protected $securityContext = null;
     protected $securityManager = null;
@@ -160,7 +160,7 @@ class AuthenticationHandler  {
      */
     abstract protected function loadNodeConfig();
 
-    
+
 
     /**
      * accessor
