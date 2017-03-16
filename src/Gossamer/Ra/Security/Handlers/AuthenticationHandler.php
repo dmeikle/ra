@@ -9,15 +9,11 @@
  *  file that was distributed with this source code.
  */
 
-namespace core\components\security\handlers;
+namespace Gossamer\Ra\Security\Handlers;
 
-use core\services\ServiceInterface;
-use core\datasources\DatasourceAware;
-use Gossamer\Caching\CacheManager;
-use Monolog\Logger;
-use libraries\utils\Container;
-use libraries\utils\YAMLParser;
-use libraries\utils\URISectionComparator;
+
+use Gossamer\Neith\Logging\LoggingInterface;
+use Gossamer\Horus\Http\HttpInterface;
 
 /**
  * this class handles all authentication when a user logs in. No need to create
@@ -86,30 +82,25 @@ use libraries\utils\URISectionComparator;
  */
 class AuthenticationHandler  {
 
-    private $securityContext = null;
-    private $securityManager = null;
-    private $logger = null;
-    private $container = null;
-    private $node = null;
+    protected $securityContext = null;
+    protected $securityManager = null;
+    protected $logger = null;
+    protected $container = null;
+    protected $node = null;
 
     const FIREWALL_CACHE_KEY = 'FIREWALL_RULES';
     /**
      *
      * @param Logger $logger
      */
-    public function __construct(Logger $logger) {
+    public function __construct(LoggingInterface $logger, Container $container) {
         $this->logger = $logger;
+        $this->container = $container;
+
         $this->loadNodeConfig();
     }
 
-    /**
-     * accessor
-     *
-     * @param Container $container
-     */
-    public function setContainer(Container $container) {
-        $this->container = $container;
-    }
+
 
     /**
      * main method called. calls the provider and gets the provider to
@@ -142,7 +133,6 @@ class AuthenticationHandler  {
                 echo json_encode(array('message' => $e->getMessage(), 'code' => $e->getCode()));
             }
 
-
             die();
         }
 
@@ -154,67 +144,23 @@ class AuthenticationHandler  {
      * accessor
      *
      * @return string
-     */
-    private function getSiteURL() {
+
+    protected function getSiteURL() {
         $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
         $domainName = $_SERVER['HTTP_HOST'] . '/';
 
         return $protocol . $domainName;
     }
+*/
 
     /**
      * loads the firewall configuration
      *
      * @return empty|array
      */
-    private function loadNodeConfig() {
+    abstract protected function loadNodeConfig();
 
-        $loader = new YAMLParser($this->logger);
-        $loader->setFilePath(__SITE_PATH . '/app/config/firewall.yml');
-        $config = $loader->loadConfig();
-        unset($loader);
-//        $manager = new CacheManager($this->logger);
-//
-//        $config = $manager->retrieveFromCache(self::FIREWALL_CACHE_KEY);
-//        if($config === false) {
-//            $config = $this->createCachedFirewallRules();
-//        }
-        $parser = new URISectionComparator();
-        $key = $parser->findPattern($config, __URI);
-        unset($parser);
-
-        if (empty($key)) {
-            return;
-        }
-
-        $this->node = $config[$key];
-    }
-
-    private function createCachedFirewallRules() {
-        $loader = new YAMLParser($this->logger);
-        $loader->setFilePath(__SITE_PATH . '/app/config/firewall.yml');
-        $retval = $loader->loadConfig();
-        $subdirectories = getDirectoryList();
-        $componentFirewalls = array();
-
-        foreach ($subdirectories as $folder) {
-
-            $loader->setFilePath($folder . '/config/firewall.yml');
-         
-            $config = $loader->loadConfig();
-
-            if (is_array($config)) {
-                $retval[] = $config;
-            }
-        }
-
-        unset($loader);
-        $manager = new CacheManager($this->logger);
-
-        $manager->saveToCache(self::FIREWALL_CACHE_KEY, $retval);
-
-        return $retval;
-    }
+    
 
     /**
      * accessor

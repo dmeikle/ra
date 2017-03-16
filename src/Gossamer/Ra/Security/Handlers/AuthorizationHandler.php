@@ -9,36 +9,30 @@
  *  file that was distributed with this source code.
  */
 
-namespace core\components\security\handlers;
+namespace Gossamer\Ra\Security\Handlers;
 
-use core\services\ServiceInterface;
-use core\datasources\DatasourceAware;
-use Monolog\Logger;
-use libraries\utils\Container;
-use libraries\utils\YAMLParser;
-use libraries\utils\URISectionComparator;
+
+use Gossamer\Neith\Logging\LoggingInterface;
+use Gossamer\Horus\Http\HttpInterface;
 
 /**
  * AuthorizationHandler - placeholder - not implemented
  *
  * @author Dave Meikle
  */
-class AuthorizationHandler extends DatasourceAware implements ServiceInterface {
+abstract class AuthorizationHandler  {
 
     protected $container = null;
     protected $provider = null;
 
-    public function __construct(Logger $logger) {
+    public function __construct(LoggingInterface $logger, Container $container) {
         $this->logger = $logger;
-    }
-
-    public function execute() {
-        //$this->provider->setClient()
-    }
-
-    public function setContainer(Container $container) {
         $this->container = $container;
     }
+
+    public abstract function execute() ;
+
+
 
     public function setParameters(array $params) {
         $this->provider = $params['provider'];
