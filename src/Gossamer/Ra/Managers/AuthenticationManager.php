@@ -20,6 +20,19 @@ namespace Gossamer\Ra\Managers;
 use Gossamer\Neith\Logging\LoggingInterface;
 use Gossamer\Horus\Http\HttpInterface;
 
+
+/**
+ * Class AuthenticationManager
+ * @package Gossamer\Ra\Managers
+ *
+ * This class is the abstract authentication class. It is intended for handling all
+ * requests that require authentication before proceeding. A provider will be
+ * passed in which does the work unique to the context of the request
+ * eg: retrieving member information without the manager being aware of where the
+ * information came from.
+ * The manager then determines the validity of the requesting source based on
+ * information provided by the provider
+ */
 abstract class AuthenticationManager
 {
 
@@ -116,7 +129,7 @@ abstract class AuthenticationManager
 
     /**
      *
-     * @return \core\components\security\core\Client
+     * @return \Gossamer\Ra\Security\Client
      */
     public abstract function getClient();
     

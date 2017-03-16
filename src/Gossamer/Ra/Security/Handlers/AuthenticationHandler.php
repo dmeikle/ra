@@ -84,7 +84,7 @@ use libraries\utils\URISectionComparator;
  *
  * @author Dave Meikle
  */
-class AuthenticationHandler extends DatasourceAware implements ServiceInterface {
+class AuthenticationHandler  {
 
     private $securityContext = null;
     private $securityManager = null;
