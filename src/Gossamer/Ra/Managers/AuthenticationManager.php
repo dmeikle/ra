@@ -20,7 +20,7 @@ namespace Gossamer\Ra\Managers;
 use Gossamer\Neith\Logging\LoggingInterface;
 use Gossamer\Horus\Http\HttpInterface;
 
-class AuthenticationManager
+abstract class AuthenticationManager
 {
 
     use \Gossamer\Set\Utils\ContainerTrait;
@@ -126,4 +126,5 @@ class AuthenticationManager
      * @return array(credentials)|null
      */
     protected abstract function getClientHeaderCredentials();
+
 }
