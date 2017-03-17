@@ -83,7 +83,7 @@ use Gossamer\Horus\Http\HttpInterface;
 abstract class AuthenticationHandler  {
 
     protected $securityContext = null;
-    protected $securityManager = null;
+    protected $authenticationManager = null;
     protected $logger = null;
     protected $container = null;
     protected $node = null;
@@ -123,7 +123,7 @@ abstract class AuthenticationHandler  {
         
         try {
 
-            $this->securityManager->authenticate($this->securityContext);
+            $this->authenticationManager->authenticate($this->securityContext);
         } catch (\Exception $e) {
 
 
@@ -170,7 +170,7 @@ abstract class AuthenticationHandler  {
     public function setParameters(array $params) {
 
         $this->securityContext = $params['security_context'];
-        $this->securityManager = $params['authentication_manager'];
+        $this->authenticationManager = $params['authentication_manager'];
     }
 
     /**
@@ -180,7 +180,7 @@ abstract class AuthenticationHandler  {
      */
     protected function getToken() {
 
-        return $this->securityManager->generateEmptyToken();
+        return $this->authenticationManager->generateEmptyToken();
     }
 
 }

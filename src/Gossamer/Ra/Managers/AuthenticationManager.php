@@ -40,15 +40,17 @@ abstract class AuthenticationManager
 
     protected $logger;
     
-    protected $provider = null;
+    protected $userAuthenticationProvider = null;
     
     protected $container;
     
     protected $node;
-    
-    
+
+    protected $request;
+
     public function __construct(LoggingInterface $logger, HttpInterface $request) {
         $this->logger = $logger;
+        $this->request = $request;
     }
 
 
@@ -60,9 +62,9 @@ abstract class AuthenticationManager
      *
      * @throws ClientCredentialsNotFoundException
      */
-    public function authenticate(SecurityContextInterface $context) {
+    public function authenticate(SecurityContextInterface &$context) {
 
-        $token = $this->generateEmptyToken();
+        $token = $this->generateEmptyToken($this->getSession());
 
         try {
             $this->userAuthenticationProvider->loadClientByCredentials($token->getClient()->getCredentials());
@@ -92,7 +94,7 @@ abstract class AuthenticationManager
             throw new ArgumentNotPassedException('authentication_provider not specified in config');
         }
 
-        $this->provider = $params['authentication_provider'];
+        $this->userAuthenticationProvider = $params['authentication_provider'];
     }
 
 
@@ -140,4 +142,8 @@ abstract class AuthenticationManager
      */
     protected abstract function getClientHeaderCredentials();
 
+    /**
+     * @return mixed
+     */
+    protected abstract function getSession();
 }
