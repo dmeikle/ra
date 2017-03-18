@@ -15,7 +15,7 @@
  * Time: 12:18 AM
  */
 
-namespace Gossamer\Ra\Managers;
+namespace Gossamer\Ra\Security\Managers;
 
 use Gossamer\Neith\Logging\LoggingInterface;
 use Gossamer\Horus\Http\HttpInterface;
@@ -26,7 +26,7 @@ use Gossamer\Ra\Security\SecurityToken;
 
 /**
  * Class AuthenticationManager
- * @package Gossamer\Ra\Managers
+ * @package Gossamer\Ra\Security\Managers
  *
  * This class is the abstract authentication class. It is intended for handling all
  * requests that require authentication before proceeding. A provider will be
