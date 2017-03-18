@@ -19,6 +19,9 @@ namespace Gossamer\Ra\Managers;
 
 use Gossamer\Neith\Logging\LoggingInterface;
 use Gossamer\Horus\Http\HttpInterface;
+use Gossamer\Ra\Exceptions\ClientCredentialsNotFoundException;
+use Gossamer\Ra\Security\SecurityContextInterface;
+use Gossamer\Ra\Security\SecurityToken;
 
 
 /**
